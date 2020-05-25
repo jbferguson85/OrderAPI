@@ -19,7 +19,7 @@ namespace OrderData.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
-                });
+                }); 
 
             migrationBuilder.CreateTable(
                 name: "Products",
