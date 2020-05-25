@@ -1,14 +1,26 @@
-﻿using System;
-using OrderData.Contexts;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using OrderCore.DTOs;
+using OrderManagers.Interfaces;
 
 namespace OrderAPI.Controllers
 {
-    public class ProductsController
+    [Route("api/Products")]
+    public class ProductsController : ControllerBase
     {
-        private OrderDbContext _context;
-        public ProductsController(OrderDbContext context)
+        private readonly IOrderManager _orderManager;
+
+        public ProductsController(IOrderManager orderManager)
         {
-            _context = context;
+            _orderManager = orderManager;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProducts()
+        {
+            var products = await _orderManager.GetProductsAsync();
+            return Ok(products);
         }
     }
 }

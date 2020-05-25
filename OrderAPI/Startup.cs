@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,8 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OrderData.Accessors.Implementations;
-using OrderData.Accessors.Interfaces;
+using OrderAccessors.Accessors.Implementations;
+using OrderAccessors.Accessors.Interfaces;
 using OrderData.Contexts;
 using OrderManagers.Implementations;
 using OrderManagers.Interfaces;
@@ -36,6 +37,7 @@ namespace OrderAPI
             {
                 options.UseSqlServer(Configuration.GetConnectionString("OrderDatabase"));
             });
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IOrderDataAccessor, OrderDataAccessor>();
             services.AddScoped<IOrderManager, OrderManager>();
         }
