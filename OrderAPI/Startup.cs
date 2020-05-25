@@ -9,7 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OrderData.Accessors.Implementations;
+using OrderData.Accessors.Interfaces;
 using OrderData.Contexts;
+using OrderManagers.Implementations;
+using OrderManagers.Interfaces;
 
 namespace OrderAPI
 {
@@ -32,6 +36,8 @@ namespace OrderAPI
             {
                 options.UseSqlServer(Configuration.GetConnectionString("OrderDatabase"));
             });
+            services.AddScoped<IOrderDataAccessor, OrderDataAccessor>();
+            services.AddScoped<IOrderManager, OrderManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

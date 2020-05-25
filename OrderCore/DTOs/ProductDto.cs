@@ -1,7 +1,7 @@
 ﻿using System;
-namespace OrderData.Entities
+namespace OrderCore.DTOs
 {
-    public class Product
+    public class ProductDto
     {
         public int Id { get; set; }
 
@@ -9,6 +9,6 @@ namespace OrderData.Entities
 
         public string ItemCode { get; set; }
 
-        public Price Price { get; set; }
+        public decimal Price { get; set; }
     }
 }
