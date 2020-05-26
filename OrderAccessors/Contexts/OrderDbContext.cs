@@ -20,5 +20,10 @@ namespace OrderData.Contexts
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<Price> Prices { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<OrderProduct>().HasKey(o => new { o.OrderId, o.ProductId});
+        }
     }
 }

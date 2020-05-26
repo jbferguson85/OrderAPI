@@ -11,17 +11,23 @@ namespace OrderManagers.Implementations
     public class OrderManager : IOrderManager
     {
         private readonly IOrderDataAccessor _orderAccessor;
-        private readonly IMapper _mapper;
-        public OrderManager(IOrderDataAccessor orderDataAccessor, IMapper mapper) 
+        public OrderManager(IOrderDataAccessor orderDataAccessor) 
         {
             _orderAccessor = orderDataAccessor;
-            _mapper = mapper;
         }
 
-        public async Task<List<ProductDto>> GetProductsAsync()
+        public async Task<ProductDto> GetProductAsync(int productId)
         {
-            var productEntities = await _orderAccessor.GetProductsAsync();
-            return _mapper.Map<List<ProductDto>>(productEntities);
+            return await _orderAccessor.GetProductAsync(productId);
+        }
+
+        public async Task<List<ProductDto>> GetProductsAsync(string searchTerm)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                return await _orderAccessor.GetProductsAsync();
+            }
+            return await _orderAccessor.SearchProductsAsync(searchTerm.Trim());
         }
     }
 }

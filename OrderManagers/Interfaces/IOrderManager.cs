@@ -7,6 +7,7 @@ namespace OrderManagers.Interfaces
 {
     public interface IOrderManager
     {
-        Task<List<ProductDto>> GetProductsAsync();
+        Task<List<ProductDto>> GetProductsAsync(string searchTerm);
+        Task<ProductDto> GetProductAsync(int productId);
     }
 }

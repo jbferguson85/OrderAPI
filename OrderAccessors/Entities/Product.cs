@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace OrderData.Entities
 {
     public class Product
@@ -10,5 +12,9 @@ namespace OrderData.Entities
         public string ItemCode { get; set; }
 
         public Price Price { get; set; }
+
+        public string Name { get; set; }
+
+        List<OrderProduct> OrderProducts { get; set; }
     }
 }

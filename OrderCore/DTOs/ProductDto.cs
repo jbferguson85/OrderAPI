@@ -10,5 +10,7 @@ namespace OrderCore.DTOs
         public string ItemCode { get; set; }
 
         public decimal Price { get; set; }
+
+        public string Name { get; set; }
     }
 }

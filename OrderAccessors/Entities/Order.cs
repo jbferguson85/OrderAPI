@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace OrderData.Entities
 {
     public class Order
@@ -9,6 +11,6 @@ namespace OrderData.Entities
 
         public DateTime CreatedDate { get; set; }
 
-
+        List<OrderProduct> OrderProducts { get; set; }
     }
 }

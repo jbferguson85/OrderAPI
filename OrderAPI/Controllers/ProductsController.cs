@@ -16,10 +16,29 @@ namespace OrderAPI.Controllers
             _orderManager = orderManager;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetProducts()
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProduct(int id)
         {
-            var products = await _orderManager.GetProductsAsync();
+            var product = await _orderManager.GetProductAsync(id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(product);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProducts(string searchTerm)
+        {
+            var products = await _orderManager.GetProductsAsync(searchTerm);
+
+            if (products.Count == 0)
+            {
+                return NotFound();
+            }
+
             return Ok(products);
         }
     }
