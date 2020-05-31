@@ -1,7 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using OrderCore.DTOs;
-using OrderData.Entities;
+using OrderAccessors.Entities;
 
 namespace OrderManagers.MappingProfiles
 {

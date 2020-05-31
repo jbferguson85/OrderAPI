@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using OrderCore.DTOs;
-using OrderData.Entities;
 
 namespace OrderAccessors.Accessors.Interfaces
 {

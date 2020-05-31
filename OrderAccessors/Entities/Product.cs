@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OrderData.Entities
+namespace OrderAccessors.Entities
 {
     public class Product
     {

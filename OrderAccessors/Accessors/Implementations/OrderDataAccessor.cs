@@ -6,8 +6,8 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using OrderAccessors.Accessors.Interfaces;
 using OrderCore.DTOs;
-using OrderData.Contexts;
-using OrderData.Entities;
+using OrderAccessors.Contexts;
+using OrderAccessors.Entities;
 
 namespace OrderAccessors.Accessors.Implementations
 {

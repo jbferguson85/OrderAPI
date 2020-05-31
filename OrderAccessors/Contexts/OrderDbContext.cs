@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using OrderData.Entities;
+using OrderAccessors.Entities;
 
-namespace OrderData.Contexts
+namespace OrderAccessors.Contexts
 {
     public class OrderDbContext : DbContext
     {
@@ -19,11 +19,14 @@ namespace OrderData.Contexts
 
         public DbSet<Order> Orders { get; set; }
 
-        public DbSet<Price> Prices { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<LineItem> LineItems { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<OrderProduct>().HasKey(o => new { o.OrderId, o.ProductId});
+            modelBuilder.Entity<LineItem>().HasKey(o => new { o.OrderId, o.ProductId});
         }
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OrderAccessors.Accessors.Implementations;
 using OrderAccessors.Accessors.Interfaces;
-using OrderData.Contexts;
+using OrderAccessors.Contexts;
 using OrderManagers.Implementations;
 using OrderManagers.Interfaces;
 

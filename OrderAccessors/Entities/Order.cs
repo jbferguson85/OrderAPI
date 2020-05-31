@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using OrderAccessors.Entities;
 
-namespace OrderData.Entities
+namespace OrderAccessors.Entities
 {
     public class Order
     {
