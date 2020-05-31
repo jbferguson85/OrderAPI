@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OrderData.Entities
+namespace OrderCore.DTOs
 {
-    public class Order
+    public class OrderDto
     {
+        public OrderDto()
+        {
+        }
+
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -19,6 +23,6 @@ namespace OrderData.Entities
 
         public DateTime CreatedDate { get; set; }
 
-        List<OrderProduct> OrderProducts { get; set; }
+        public List<ProductDto> Products { get; set; }
     }
 }
