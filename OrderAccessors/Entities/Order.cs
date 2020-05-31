@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using OrderAccessors.Entities;
 
 namespace OrderData.Entities
 {
@@ -7,18 +8,18 @@ namespace OrderData.Entities
     {
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public string OrderNumber { get; set; }
 
-        public string Address { get; set; }
+        public string OrderStatus { get; set; }
 
-        public string City { get; set; }
-
-        public string State { get; set; }
-
-        public string ZipCode { get; set; }
+        public string OrderName { get; set; }
 
         public DateTime CreatedDate { get; set; }
 
-        List<OrderProduct> OrderProducts { get; set; }
+        public DateTime CompletedDate { get; set; }
+
+        public Customer Customer { get; set; }
+
+        public List<LineItem> LineItems { get; set; }
     }
 }

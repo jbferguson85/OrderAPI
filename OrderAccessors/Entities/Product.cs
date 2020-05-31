@@ -11,10 +11,8 @@ namespace OrderData.Entities
 
         public string ItemCode { get; set; }
 
-        public Price Price { get; set; }
+        public decimal Price { get; set; }
 
         public string Name { get; set; }
-
-        List<OrderProduct> OrderProducts { get; set; }
     }
 }

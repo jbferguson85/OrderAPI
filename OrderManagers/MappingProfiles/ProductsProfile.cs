@@ -9,9 +9,7 @@ namespace OrderManagers.MappingProfiles
     {
         public ProductsProfile()
         {
-            CreateMap<Product, ProductDto>()
-                .ForMember(s => s.Price, opt => opt.Ignore())
-                .AfterMap((s, d) => d.Price = s.Price.ProductPrice);
+            CreateMap<Product, ProductDto>();
         }
     }
 }
