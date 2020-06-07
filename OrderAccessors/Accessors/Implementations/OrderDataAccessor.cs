@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using OrderAccessors.Accessors.Interfaces;
 using OrderCore.DTOs;
 using OrderAccessors.Contexts;
-using OrderAccessors.Entities;
 
 namespace OrderAccessors.Accessors.Implementations
 {
@@ -47,9 +45,18 @@ namespace OrderAccessors.Accessors.Implementations
             return _mapper.Map<CustomerDto>(customer);
         }
 
-        public Task<List<CustomerDto>> GetCustomersAsync(string searchTerm)
+        public async Task<List<CustomerDto>> GetCustomersAsync()
         {
-            throw new NotImplementedException();
+            var customers = await _context.Customers.ToListAsync();
+            return _mapper.Map<List<CustomerDto>>(customers);
+        }
+
+        public async Task<List<CustomerDto>> SearchCustomersAsync(string searchTerm)
+        {
+            var entities = await _context.Customers.Where(c => c.CustomerName.ToUpper().Contains(searchTerm.ToUpper())
+            || c.CustomerNumber.ToUpper().Contains(searchTerm.ToUpper())
+            || c.City.ToUpper().Contains(searchTerm.ToUpper())).ToListAsync();
+            return _mapper.Map<List<CustomerDto>>(entities);
         }
     }
 }

@@ -9,5 +9,7 @@ namespace OrderManagers.Interfaces
     {
         Task<List<ProductDto>> GetProductsAsync(string searchTerm);
         Task<ProductDto> GetProductAsync(int productId);
+        Task<List<CustomerDto>> GetCustomersAsync(string searchTerm);
+        Task<CustomerDto> GetCustomerAsync(int customerId);
     }
 }

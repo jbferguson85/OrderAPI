@@ -15,6 +15,8 @@ namespace OrderAccessors.Accessors.Interfaces
 
         Task<CustomerDto> GetCustomerAsync(int customerId);
 
-        Task<List<CustomerDto>> GetCustomersAsync(string searchTerm);
+        Task<List<CustomerDto>> GetCustomersAsync();
+
+        Task<List<CustomerDto>> SearchCustomersAsync(string searchTerm);
     }
 }
