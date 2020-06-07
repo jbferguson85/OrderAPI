@@ -23,13 +23,13 @@ namespace OrderAccessors.Accessors.Implementations
 
         public async Task<List<ProductDto>> GetProductsAsync()
         {
-            var entities = await _context.Products.Include(p => p.Price).ToListAsync();
+            var entities = await _context.Products.ToListAsync();
             return _mapper.Map<List<ProductDto>>(entities);
         }
 
         public async Task<List<ProductDto>> SearchProductsAsync(string searchTerm)
         {
-            var entities = await _context.Products.Include(p => p.Price).Where(p => p.Description.ToUpper().Contains(searchTerm.ToUpper())
+            var entities = await _context.Products.Where(p => p.Description.ToUpper().Contains(searchTerm.ToUpper())
             || p.Name.ToUpper().Contains(searchTerm.ToUpper())
             || p.ItemCode.ToUpper().Contains(searchTerm.ToUpper())).ToListAsync();
             return _mapper.Map<List<ProductDto>>(entities);
@@ -37,8 +37,19 @@ namespace OrderAccessors.Accessors.Implementations
 
         public async Task<ProductDto> GetProductAsync(int productId)
         {
-            var entity = await _context.Products.Include(p => p.Price).FirstOrDefaultAsync(p => p.Id == productId);
+            var entity = await _context.Products.FirstOrDefaultAsync(p => p.Id == productId);
             return _mapper.Map<ProductDto>(entity);
+        }
+
+        public async Task<CustomerDto> GetCustomerAsync(int customerId)
+        {
+            var customer = await _context.Customers.FirstOrDefaultAsync(cust => cust.Id == customerId);
+            return _mapper.Map<CustomerDto>(customer);
+        }
+
+        public Task<List<CustomerDto>> GetCustomersAsync(string searchTerm)
+        {
+            throw new NotImplementedException();
         }
     }
 }
