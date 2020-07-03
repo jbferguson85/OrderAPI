@@ -21,6 +21,16 @@ namespace OrderManagers.Implementations
             return await _orderAccessor.GetProductAsync(productId);
         }
 
+        public Task<List<CustomerDto>> GetCustomersAsync(string searchTerm)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<CustomerDto> GetCustomerAsync(int customerId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<List<ProductDto>> GetProductsAsync(string searchTerm)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))
