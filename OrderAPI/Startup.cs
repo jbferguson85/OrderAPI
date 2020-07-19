@@ -35,7 +35,7 @@ namespace OrderAPI
             services.AddControllers();
             services.AddDbContext<OrderDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("OrderDatabase"));
+                options.UseNpgsql(Configuration.GetConnectionString("OrderDatabase"));
             });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IOrderDataAccessor, OrderDataAccessor>();
