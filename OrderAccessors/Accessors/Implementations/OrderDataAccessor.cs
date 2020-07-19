@@ -11,7 +11,7 @@ namespace OrderAccessors.Accessors.Implementations
 {
     public class OrderDataAccessor : IOrderDataAccessor
     {
-        private OrderDbContext _context;
+        private readonly OrderDbContext _context;
         private readonly IMapper _mapper;
         public OrderDataAccessor(OrderDbContext context, IMapper mapper)
         {
