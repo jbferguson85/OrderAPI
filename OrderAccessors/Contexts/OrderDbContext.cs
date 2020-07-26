@@ -26,6 +26,7 @@ namespace OrderAccessors.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasDefaultSchema("Order");
             modelBuilder.Entity<LineItem>().HasKey(o => new { o.OrderId, o.ProductId});
         }
     }

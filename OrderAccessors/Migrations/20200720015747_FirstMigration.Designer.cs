@@ -10,13 +10,14 @@ using OrderAccessors.Contexts;
 namespace OrderAccessors.Migrations
 {
     [DbContext(typeof(OrderDbContext))]
-    [Migration("20200719005313_FirstMigration")]
+    [Migration("20200720015747_FirstMigration")]
     partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("Order")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);

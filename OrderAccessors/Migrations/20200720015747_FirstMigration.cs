@@ -8,8 +8,12 @@ namespace OrderAccessors.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "Order");
+
             migrationBuilder.CreateTable(
                 name: "Customers",
+                schema: "Order",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -28,6 +32,7 @@ namespace OrderAccessors.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Products",
+                schema: "Order",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -44,6 +49,7 @@ namespace OrderAccessors.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Orders",
+                schema: "Order",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -61,6 +67,7 @@ namespace OrderAccessors.Migrations
                     table.ForeignKey(
                         name: "FK_Orders_Customers_CustomerId",
                         column: x => x.CustomerId,
+                        principalSchema: "Order",
                         principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -68,6 +75,7 @@ namespace OrderAccessors.Migrations
 
             migrationBuilder.CreateTable(
                 name: "LineItems",
+                schema: "Order",
                 columns: table => new
                 {
                     ProductId = table.Column<int>(nullable: false),
@@ -85,6 +93,7 @@ namespace OrderAccessors.Migrations
                     table.ForeignKey(
                         name: "FK_LineItems_Orders_OrderId",
                         column: x => x.OrderId,
+                        principalSchema: "Order",
                         principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -92,6 +101,7 @@ namespace OrderAccessors.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_CustomerId",
+                schema: "Order",
                 table: "Orders",
                 column: "CustomerId");
         }
@@ -99,16 +109,20 @@ namespace OrderAccessors.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "LineItems");
+                name: "LineItems",
+                schema: "Order");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Products",
+                schema: "Order");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "Orders",
+                schema: "Order");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "Customers",
+                schema: "Order");
         }
     }
 }
