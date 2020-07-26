@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using OrderCore.DTOs;
@@ -21,14 +21,19 @@ namespace OrderManagers.Implementations
             return await _orderAccessor.GetProductAsync(productId);
         }
 
-        public Task<List<CustomerDto>> GetCustomersAsync(string searchTerm)
+        public async Task<List<CustomerDto>> GetCustomersAsync(string searchTerm)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                return await _orderAccessor.GetCustomersAsync();
+            }
+
+            return await _orderAccessor.SearchCustomersAsync(searchTerm);
         }
 
-        public Task<CustomerDto> GetCustomerAsync(int customerId)
+        public async Task<CustomerDto> GetCustomerAsync(int customerId)
         {
-            throw new NotImplementedException();
+            return await _orderAccessor.GetCustomerAsync(customerId);
         }
 
         public async Task<List<ProductDto>> GetProductsAsync(string searchTerm)
