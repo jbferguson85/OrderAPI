@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using OrderAccessors.Accessors.Interfaces;
 using OrderCore.DTOs;
 using OrderAccessors.Contexts;
+using OrderAccessors.Entities;
 
 namespace OrderAccessors.Accessors.Implementations
 {
@@ -57,6 +58,13 @@ namespace OrderAccessors.Accessors.Implementations
             || c.CustomerNumber.ToUpper().Contains(searchTerm.ToUpper())
             || c.City.ToUpper().Contains(searchTerm.ToUpper())).ToListAsync();
             return _mapper.Map<List<CustomerDto>>(entities);
+        }
+
+        public async Task<OrderDto> CreateOrderAsync(OrderDto order)
+        {
+            var entity = _mapper.Map<Order>(order);
+            await _context.Orders.AddAsync(entity);
+            return order;
         }
     }
 }

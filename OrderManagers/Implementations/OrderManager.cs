@@ -36,6 +36,16 @@ namespace OrderManagers.Implementations
             return await _orderAccessor.GetCustomerAsync(customerId);
         }
 
+        public async Task<OrderDto> CreateOrderAsync(OrderDto order)
+        {
+            if (order.Id != null)
+            {
+                order.Id = Guid.NewGuid();
+            }
+
+            return await _orderAccessor.CreateOrderAsync(order);
+        }
+
         public async Task<List<ProductDto>> GetProductsAsync(string searchTerm)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))

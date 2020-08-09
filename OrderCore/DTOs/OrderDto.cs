@@ -9,7 +9,7 @@ namespace OrderCore.DTOs
         {
         }
 
-        public int Id { get; set; }
+        public Guid? Id { get; set; }
 
         public string OrderNumber { get; set; }
 
@@ -22,5 +22,7 @@ namespace OrderCore.DTOs
         public DateTime CompletedDate { get; set; }
 
         public CustomerDto Customer { get; set; }
+
+        public List<LineItemDto> LineItems { get; set; }
     }
 }
