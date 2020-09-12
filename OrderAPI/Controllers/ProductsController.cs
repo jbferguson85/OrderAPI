@@ -6,6 +6,7 @@ using OrderManagers.Interfaces;
 
 namespace OrderAPI.Controllers
 {
+    [ApiController]
     [Route("api/Products")]
     public class ProductsController : ControllerBase
     {

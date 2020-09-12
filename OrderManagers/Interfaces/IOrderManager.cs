@@ -12,5 +12,8 @@ namespace OrderManagers.Interfaces
         Task<List<CustomerDto>> GetCustomersAsync(string searchTerm);
         Task<CustomerDto> GetCustomerAsync(int customerId);
         Task<OrderDto> CreateOrderAsync(OrderDto order);
+
+        Task<OrderDto> GetOrderAsync(Guid orderId);
+        Task<List<OrderDto>> GetOrdersAsync();
     }
 }

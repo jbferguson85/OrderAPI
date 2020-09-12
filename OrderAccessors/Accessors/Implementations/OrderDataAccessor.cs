@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -65,6 +66,18 @@ namespace OrderAccessors.Accessors.Implementations
             var entity = _mapper.Map<Order>(order);
             await _context.Orders.AddAsync(entity);
             return order;
+        }
+
+        public async Task<OrderDto> GetOrderAsync(Guid orderId)
+        {
+            var order = await _context.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
+            return _mapper.Map<OrderDto>(order);
+        }
+
+        public async Task<List<OrderDto>> GetOrdersAsync()
+        {
+            var orders = await _context.Orders.ToListAsync();
+            return _mapper.Map<List<OrderDto>>(orders);
         }
     }
 }
