@@ -1,7 +1,9 @@
 using System;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using OrderAPI.ViewModels;
+using OrderCore.DTOs;
 using OrderManagers.Interfaces;
 
 namespace OrderAPI.Controllers
@@ -11,10 +13,12 @@ namespace OrderAPI.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly IOrderManager _orderManager;
+        private readonly IMapper _mapper;
 
-        public OrdersController(IOrderManager orderManager)
+        public OrdersController(IOrderManager orderManager, IMapper mapper)
         {
             _orderManager = orderManager;
+            _mapper = mapper;
         }
         
         [HttpGet("{id}")]
@@ -44,7 +48,9 @@ namespace OrderAPI.Controllers
 
         public async Task<IActionResult> CreateOrder(OrderForCreationViewModel order)
         {
-            
+            var orderDto = _mapper.Map<OrderDto>(order);
+            var newOrder = await _orderManager.CreateOrderAsync(orderDto);
+            return Ok(newOrder);
         }
     }
 }

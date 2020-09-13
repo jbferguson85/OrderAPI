@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace OrderAPI.ViewModels
 {
@@ -15,5 +16,7 @@ namespace OrderAPI.ViewModels
         public DateTime CreatedDate { get; set; }
 
         public DateTime CompletedDate { get; set; }
+
+        public List<LineItemForCreationViewModel> LineItems { get; set; }
     }
 }
