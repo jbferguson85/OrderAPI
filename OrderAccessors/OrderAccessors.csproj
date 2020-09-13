@@ -25,4 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\OrderCore\OrderCore.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="MappingProfiles\CustomerEntityProfile.cs" />
+  </ItemGroup>
 </Project>

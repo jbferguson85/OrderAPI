@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using OrderAccessors.Accessors.Interfaces;
 using OrderCore.DTOs;
 using OrderAccessors.Contexts;
-using OrderAccessors.Entities;
+using OrderCore.Entities;
 
 namespace OrderAccessors.Accessors.Implementations
 {
@@ -63,7 +63,7 @@ namespace OrderAccessors.Accessors.Implementations
 
         public async Task<OrderDto> CreateOrderAsync(OrderDto order)
         {
-            var entity = _mapper.Map<Order>(order);
+            var entity = _mapper.Map<OrderEntity>(order);
             await _context.Orders.AddAsync(entity);
             return order;
         }

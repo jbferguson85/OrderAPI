@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace OrderAccessors.Entities
+namespace OrderCore.Entities
 {
-    public class Order
+    public class OrderEntity
     {
         public Guid? Id { get; set; }
 
@@ -17,8 +17,8 @@ namespace OrderAccessors.Entities
 
         public DateTime CompletedDate { get; set; }
 
-        public Customer Customer { get; set; }
+        public CustomerEntity Customer { get; set; }
 
-        public List<LineItem> LineItems { get; set; }
+        public List<LineItemEntity> LineItems { get; set; }
     }
 }

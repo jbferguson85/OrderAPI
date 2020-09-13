@@ -1,12 +1,7 @@
-﻿using System;
-namespace OrderAccessors.Entities
+namespace OrderCore.Entities
 {
-    public class Customer
+    public class CustomerEntity
     {
-        public Customer()
-        {
-        }
-
         public int Id { get; set; }
 
         public string Address { get; set; }

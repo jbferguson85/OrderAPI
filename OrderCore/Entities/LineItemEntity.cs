@@ -1,12 +1,7 @@
-﻿using System;
-namespace OrderAccessors.Entities
+namespace OrderCore.Entities
 {
-    public class LineItem
+    public class LineItemEntity
     {
-        public LineItem()
-        {
-        }
-
         public int ProductId { get; set; }
 
         public int OrderId { get; set; }

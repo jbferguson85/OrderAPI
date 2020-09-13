@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace OrderAccessors.Entities
+namespace OrderCore.Entities
 {
-    public class Product
+    public class ProductEntity
     {
         public int Id { get; set; }
 
