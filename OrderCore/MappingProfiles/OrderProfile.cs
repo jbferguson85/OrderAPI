@@ -9,6 +9,7 @@ namespace OrderCore.MappingProfiles
         public OrderProfile()
         {
             CreateMap<OrderEntity, OrderDto>().ReverseMap();
+            CreateMap<OrderDto, OrderForCreationDto>().ReverseMap();
         }
     }
 }

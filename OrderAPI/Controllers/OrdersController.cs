@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using OrderAPI.ViewModels;
 using OrderCore.DTOs;
 using OrderManagers.Interfaces;
 
@@ -48,7 +47,7 @@ namespace OrderAPI.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> CreateOrder([FromBody]OrderForCreationViewModel order)
+        public async Task<IActionResult> CreateOrder([FromBody]OrderForCreationDto order)
         {
             var orderDto = _mapper.Map<OrderDto>(order);
             var newOrder = await _orderManager.CreateOrderAsync(orderDto);

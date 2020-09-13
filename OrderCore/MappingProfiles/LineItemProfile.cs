@@ -9,6 +9,7 @@ namespace OrderCore.MappingProfiles
         public LineItemProfile()
         {
             CreateMap<LineItemDto, LineItemEntity>().ReverseMap();
+            CreateMap<LineItemDto, LineItemForCreationDto>().ReverseMap();
         }
     }
 }

@@ -74,7 +74,9 @@ namespace OrderAccessors.Accessors.Implementations
 
         public async Task<OrderDto> GetOrderAsync(int orderId)
         {
-            var order = await _context.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
+            var order = await _context.Orders
+                .Include(li => li.LineItems)
+                .FirstOrDefaultAsync(x => x.Id == orderId);
             return _mapper.Map<OrderDto>(order);
         }
 

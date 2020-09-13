@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace OrderAPI.ViewModels
+namespace OrderCore.DTOs
 {
-    public class OrderForCreationViewModel
+    public class OrderForCreationDto
     {
-        public Guid? Id { get; set; }
-
+        public int Id { get; set; }
+        
         public string OrderNumber { get; set; }
 
         public string OrderStatus { get; set; }
@@ -17,6 +17,6 @@ namespace OrderAPI.ViewModels
 
         public DateTime CompletedDate { get; set; }
 
-        public List<LineItemForCreationViewModel> LineItems { get; set; }
+        public List<LineItemForCreationDto> LineItems { get; set; }
     }
 }
