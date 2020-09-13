@@ -13,7 +13,7 @@ namespace OrderManagers.Interfaces
         Task<CustomerDto> GetCustomerAsync(int customerId);
         Task<OrderDto> CreateOrderAsync(OrderDto order);
 
-        Task<OrderDto> GetOrderAsync(Guid orderId);
+        Task<OrderDto> GetOrderAsync(int orderId);
         Task<List<OrderDto>> GetOrdersAsync();
     }
 }

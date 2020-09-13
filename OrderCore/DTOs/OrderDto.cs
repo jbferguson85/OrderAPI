@@ -9,7 +9,7 @@ namespace OrderCore.DTOs
         {
         }
 
-        public Guid? Id { get; set; }
+        public int? Id { get; set; }
 
         public string OrderNumber { get; set; }
 

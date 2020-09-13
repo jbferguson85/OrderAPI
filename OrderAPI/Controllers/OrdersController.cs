@@ -22,7 +22,7 @@ namespace OrderAPI.Controllers
         }
         
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetOrder(Guid id)
+        public async Task<IActionResult> GetOrder(int id)
         {
             var order = await _orderManager.GetOrderAsync(id);
 
@@ -33,7 +33,8 @@ namespace OrderAPI.Controllers
             
             return Ok(order);
         }
-
+        
+        [HttpGet]
         public async Task<IActionResult> GetOrders()
         {
             var orders = await _orderManager.GetOrdersAsync();
@@ -45,8 +46,9 @@ namespace OrderAPI.Controllers
 
             return Ok(orders);
         }
-
-        public async Task<IActionResult> CreateOrder(OrderForCreationViewModel order)
+        
+        [HttpPost]
+        public async Task<IActionResult> CreateOrder([FromBody]OrderForCreationViewModel order)
         {
             var orderDto = _mapper.Map<OrderDto>(order);
             var newOrder = await _orderManager.CreateOrderAsync(orderDto);

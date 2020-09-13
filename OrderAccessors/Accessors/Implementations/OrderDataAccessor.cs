@@ -63,12 +63,16 @@ namespace OrderAccessors.Accessors.Implementations
 
         public async Task<OrderDto> CreateOrderAsync(OrderDto order)
         {
+            if (order.Id == null)
+            {
+                order.Id = _context.Orders.Max(i => i.Id) + 1;
+            }
             var entity = _mapper.Map<OrderEntity>(order);
             await _context.Orders.AddAsync(entity);
             return order;
         }
 
-        public async Task<OrderDto> GetOrderAsync(Guid orderId)
+        public async Task<OrderDto> GetOrderAsync(int orderId)
         {
             var order = await _context.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
             return _mapper.Map<OrderDto>(order);

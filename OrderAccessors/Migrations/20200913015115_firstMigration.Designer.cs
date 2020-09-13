@@ -10,8 +10,8 @@ using OrderAccessors.Contexts;
 namespace OrderAccessors.Migrations
 {
     [DbContext(typeof(OrderDbContext))]
-    [Migration("20200720015747_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20200913015115_firstMigration")]
+    partial class firstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,7 +22,7 @@ namespace OrderAccessors.Migrations
                 .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("OrderAccessors.Entities.Customer", b =>
+            modelBuilder.Entity("OrderCore.Entities.CustomerEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -52,7 +52,7 @@ namespace OrderAccessors.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("OrderAccessors.Entities.LineItem", b =>
+            modelBuilder.Entity("OrderCore.Entities.LineItemEntity", b =>
                 {
                     b.Property<int>("OrderId")
                         .HasColumnType("integer");
@@ -69,6 +69,9 @@ namespace OrderAccessors.Migrations
                     b.Property<string>("ItemCode")
                         .HasColumnType("text");
 
+                    b.Property<int?>("OrderEntityId")
+                        .HasColumnType("integer");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
@@ -80,12 +83,14 @@ namespace OrderAccessors.Migrations
 
                     b.HasKey("OrderId", "ProductId");
 
+                    b.HasIndex("OrderEntityId");
+
                     b.ToTable("LineItems");
                 });
 
-            modelBuilder.Entity("OrderAccessors.Entities.Order", b =>
+            modelBuilder.Entity("OrderCore.Entities.OrderEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -115,7 +120,7 @@ namespace OrderAccessors.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("OrderAccessors.Entities.Product", b =>
+            modelBuilder.Entity("OrderCore.Entities.ProductEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -139,18 +144,16 @@ namespace OrderAccessors.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("OrderAccessors.Entities.LineItem", b =>
+            modelBuilder.Entity("OrderCore.Entities.LineItemEntity", b =>
                 {
-                    b.HasOne("OrderAccessors.Entities.Order", null)
+                    b.HasOne("OrderCore.Entities.OrderEntity", null)
                         .WithMany("LineItems")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderEntityId");
                 });
 
-            modelBuilder.Entity("OrderAccessors.Entities.Order", b =>
+            modelBuilder.Entity("OrderCore.Entities.OrderEntity", b =>
                 {
-                    b.HasOne("OrderAccessors.Entities.Customer", "Customer")
+                    b.HasOne("OrderCore.Entities.CustomerEntity", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId");
                 });

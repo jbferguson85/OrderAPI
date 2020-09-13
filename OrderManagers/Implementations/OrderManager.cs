@@ -38,15 +38,10 @@ namespace OrderManagers.Implementations
 
         public async Task<OrderDto> CreateOrderAsync(OrderDto order)
         {
-            if (order.Id != null)
-            {
-                order.Id = Guid.NewGuid();
-            }
-
             return await _orderAccessor.CreateOrderAsync(order);
         }
 
-        public async Task<OrderDto> GetOrderAsync(Guid orderId)
+        public async Task<OrderDto> GetOrderAsync(int orderId)
         {
             return await _orderAccessor.GetOrderAsync(orderId);
         }

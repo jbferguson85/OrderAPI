@@ -21,7 +21,7 @@ namespace OrderAccessors.Accessors.Interfaces
 
         Task<OrderDto> CreateOrderAsync(OrderDto order);
         
-        Task<OrderDto> GetOrderAsync(Guid orderId);
+        Task<OrderDto> GetOrderAsync(int orderId);
         Task<List<OrderDto>> GetOrdersAsync();
     }
 }
