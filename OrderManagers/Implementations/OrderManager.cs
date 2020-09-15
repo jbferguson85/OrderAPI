@@ -38,6 +38,9 @@ namespace OrderManagers.Implementations
 
         public async Task<OrderDto> CreateOrderAsync(OrderDto order)
         {
+            order.OrderStatus = "Processing";
+            order.CreatedDate = DateTime.Now; // yeah, i know. 
+            order.OrderNumber = new Random(1000).ToString();
             return await _orderAccessor.CreateOrderAsync(order);
         }
 

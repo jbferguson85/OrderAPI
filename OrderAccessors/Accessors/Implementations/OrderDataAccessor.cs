@@ -63,12 +63,18 @@ namespace OrderAccessors.Accessors.Implementations
 
         public async Task<OrderDto> CreateOrderAsync(OrderDto order)
         {
-            if (order.Id == null)
+            if (_context.Orders.Any())
             {
                 order.Id = _context.Orders.Max(i => i.Id) + 1;
             }
+            else
+            {
+                order.Id = 1;
+            }
+            order.LineItems.ForEach(item => item.OrderId = order.Id);
             var entity = _mapper.Map<OrderEntity>(order);
             await _context.Orders.AddAsync(entity);
+            await _context.SaveChangesAsync();
             return order;
         }
 
@@ -76,6 +82,7 @@ namespace OrderAccessors.Accessors.Implementations
         {
             var order = await _context.Orders
                 .Include(li => li.LineItems)
+                .Include(cust => cust.Customer)
                 .FirstOrDefaultAsync(x => x.Id == orderId);
             return _mapper.Map<OrderDto>(order);
         }

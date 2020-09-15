@@ -9,7 +9,10 @@ namespace OrderCore.MappingProfiles
         public OrderProfile()
         {
             CreateMap<OrderEntity, OrderDto>().ReverseMap();
-            CreateMap<OrderDto, OrderForCreationDto>().ReverseMap();
+            CreateMap<OrderForCreationDto, OrderDto>()
+                .AfterMap((s,d) => d.Customer = new CustomerDto{Id = s.CustomerId})
+                .ReverseMap()
+                .AfterMap((s, d) => d.CustomerId = s.Customer.Id);
         }
     }
 }

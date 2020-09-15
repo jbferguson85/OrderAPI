@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using OrderAccessors.Accessors.Implementations;
 using OrderAccessors.Accessors.Interfaces;
 using OrderAccessors.Contexts;
+using OrderCore.MappingProfiles;
 using OrderManagers.Implementations;
 using OrderManagers.Interfaces;
 
@@ -37,7 +38,8 @@ namespace OrderAPI
             {
                 options.UseNpgsql(Configuration.GetConnectionString("OrderDatabase"));
             });
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            
+            services.AddAutoMapper(typeof(OrderProfile).Assembly);
             services.AddScoped<IOrderDataAccessor, OrderDataAccessor>();
             services.AddScoped<IOrderManager, OrderManager>();
         }

@@ -5,7 +5,7 @@ namespace OrderCore.Entities
 {
     public class OrderEntity
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         public string OrderNumber { get; set; }
 

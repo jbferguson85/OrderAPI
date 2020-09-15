@@ -49,7 +49,7 @@ namespace OrderAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody]OrderForCreationDto order)
         {
-            var orderDto = _mapper.Map<OrderDto>(order);
+            var orderDto = _mapper.Map<OrderForCreationDto, OrderDto>(order);
             var newOrder = await _orderManager.CreateOrderAsync(orderDto);
             return Ok(newOrder);
         }
