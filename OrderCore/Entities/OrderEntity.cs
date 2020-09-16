@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OrderCore.Entities
 {
@@ -17,6 +18,7 @@ namespace OrderCore.Entities
 
         public DateTime CompletedDate { get; set; }
 
+        [ForeignKey("CustomerId")]
         public CustomerEntity Customer { get; set; }
 
         public List<LineItemEntity> LineItems { get; set; }

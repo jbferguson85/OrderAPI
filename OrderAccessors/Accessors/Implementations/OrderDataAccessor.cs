@@ -73,6 +73,7 @@ namespace OrderAccessors.Accessors.Implementations
             }
             order.LineItems.ForEach(item => item.OrderId = order.Id);
             var entity = _mapper.Map<OrderEntity>(order);
+            _context.Entry(entity.Customer).State = EntityState.Unchanged;
             await _context.Orders.AddAsync(entity);
             await _context.SaveChangesAsync();
             return order;
@@ -89,7 +90,10 @@ namespace OrderAccessors.Accessors.Implementations
 
         public async Task<List<OrderDto>> GetOrdersAsync()
         {
-            var orders = await _context.Orders.ToListAsync();
+            var orders = await _context.Orders
+                .Include(li => li.LineItems)
+                .Include(cust => cust.Customer)
+                .ToListAsync();
             return _mapper.Map<List<OrderDto>>(orders);
         }
     }
