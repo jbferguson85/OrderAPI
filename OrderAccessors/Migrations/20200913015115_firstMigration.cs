@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace OrderAccessors.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class firstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -85,19 +85,26 @@ namespace OrderAccessors.Migrations
                     Quantity = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
                     Discount = table.Column<decimal>(nullable: false),
-                    TotalPrice = table.Column<decimal>(nullable: false)
+                    TotalPrice = table.Column<decimal>(nullable: false),
+                    OrderEntityId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_LineItems", x => new { x.OrderId, x.ProductId });
                     table.ForeignKey(
-                        name: "FK_LineItems_Orders_OrderId",
-                        column: x => x.OrderId,
+                        name: "FK_LineItems_Orders_OrderEntityId",
+                        column: x => x.OrderEntityId,
                         principalSchema: "Order",
                         principalTable: "Orders",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LineItems_OrderEntityId",
+                schema: "Order",
+                table: "LineItems",
+                column: "OrderEntityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_CustomerId",

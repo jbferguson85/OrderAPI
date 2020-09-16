@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OrderAccessors.Entities
+namespace OrderCore.Entities
 {
-    public class Order
+    public class OrderEntity
     {
         public int Id { get; set; }
 
@@ -17,8 +18,9 @@ namespace OrderAccessors.Entities
 
         public DateTime CompletedDate { get; set; }
 
-        public Customer Customer { get; set; }
+        [ForeignKey("CustomerId")]
+        public CustomerEntity Customer { get; set; }
 
-        public List<LineItem> LineItems { get; set; }
+        public List<LineItemEntity> LineItems { get; set; }
     }
 }

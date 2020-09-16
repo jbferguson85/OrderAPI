@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using OrderAccessors.Accessors.Interfaces;
 using OrderCore.DTOs;
 using OrderAccessors.Contexts;
+using OrderCore.Entities;
 
 namespace OrderAccessors.Accessors.Implementations
 {
@@ -57,6 +59,42 @@ namespace OrderAccessors.Accessors.Implementations
             || c.CustomerNumber.ToUpper().Contains(searchTerm.ToUpper())
             || c.City.ToUpper().Contains(searchTerm.ToUpper())).ToListAsync();
             return _mapper.Map<List<CustomerDto>>(entities);
+        }
+
+        public async Task<OrderDto> CreateOrderAsync(OrderDto order)
+        {
+            if (_context.Orders.Any())
+            {
+                order.Id = _context.Orders.Max(i => i.Id) + 1;
+            }
+            else
+            {
+                order.Id = 1;
+            }
+            order.LineItems.ForEach(item => item.OrderId = order.Id);
+            var entity = _mapper.Map<OrderEntity>(order);
+            _context.Entry(entity.Customer).State = EntityState.Unchanged;
+            await _context.Orders.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return order;
+        }
+
+        public async Task<OrderDto> GetOrderAsync(int orderId)
+        {
+            var order = await _context.Orders
+                .Include(li => li.LineItems)
+                .Include(cust => cust.Customer)
+                .FirstOrDefaultAsync(x => x.Id == orderId);
+            return _mapper.Map<OrderDto>(order);
+        }
+
+        public async Task<List<OrderDto>> GetOrdersAsync()
+        {
+            var orders = await _context.Orders
+                .Include(li => li.LineItems)
+                .Include(cust => cust.Customer)
+                .ToListAsync();
+            return _mapper.Map<List<OrderDto>>(orders);
         }
     }
 }

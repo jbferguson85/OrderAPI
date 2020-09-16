@@ -36,6 +36,24 @@ namespace OrderManagers.Implementations
             return await _orderAccessor.GetCustomerAsync(customerId);
         }
 
+        public async Task<OrderDto> CreateOrderAsync(OrderDto order)
+        {
+            order.OrderStatus = "Processing";
+            order.CreatedDate = DateTime.Now; // yeah, i know. 
+            order.OrderNumber = new Random(1000).ToString();
+            return await _orderAccessor.CreateOrderAsync(order);
+        }
+
+        public async Task<OrderDto> GetOrderAsync(int orderId)
+        {
+            return await _orderAccessor.GetOrderAsync(orderId);
+        }
+
+        public async Task<List<OrderDto>> GetOrdersAsync()
+        {
+            return await _orderAccessor.GetOrdersAsync();
+        }
+
         public async Task<List<ProductDto>> GetProductsAsync(string searchTerm)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))

@@ -5,6 +5,7 @@ using OrderManagers.Interfaces;
 
 namespace OrderAPI.Controllers
 {
+    [ApiController]
     [Route("api/Customers")]
     public class CustomersController : Controller
     {

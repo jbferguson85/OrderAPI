@@ -1,6 +1,5 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using OrderAccessors.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using OrderCore.Entities;
 
 namespace OrderAccessors.Contexts
 {
@@ -15,19 +14,19 @@ namespace OrderAccessors.Contexts
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
-        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductEntity> Products { get; set; }
 
-        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderEntity> Orders { get; set; }
 
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<CustomerEntity> Customers { get; set; }
 
-        public DbSet<LineItem> LineItems { get; set; }
+        public DbSet<LineItemEntity> LineItems { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("Order");
-            modelBuilder.Entity<LineItem>().HasKey(o => new { o.OrderId, o.ProductId});
+            modelBuilder.Entity<LineItemEntity>().HasKey(o => new { o.OrderId, o.ProductId});
         }
     }
 }

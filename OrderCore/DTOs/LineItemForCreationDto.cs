@@ -1,15 +1,8 @@
-﻿using System;
-namespace OrderAccessors.Entities
+namespace OrderCore.DTOs
 {
-    public class LineItem
+    public class LineItemForCreationDto
     {
-        public LineItem()
-        {
-        }
-
         public int ProductId { get; set; }
-
-        public int OrderId { get; set; }
 
         public string ItemCode { get; set; }
 

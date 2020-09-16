@@ -22,5 +22,7 @@ namespace OrderCore.DTOs
         public DateTime CompletedDate { get; set; }
 
         public CustomerDto Customer { get; set; }
+
+        public List<LineItemDto> LineItems { get; set; }
     }
 }
