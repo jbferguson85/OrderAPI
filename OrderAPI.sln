@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderCore", "OrderCore\Orde
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderAccessors", "OrderAccessors\OrderAccessors.csproj", "{AD59145C-BAA2-4921-8648-A8A9EFB3B22C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderUnitTests", "OrderUnitTests\OrderUnitTests.csproj", "{7489CA2A-3880-4000-93D7-C3A449E5E157}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,5 +33,9 @@ Global
 		{AD59145C-BAA2-4921-8648-A8A9EFB3B22C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD59145C-BAA2-4921-8648-A8A9EFB3B22C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD59145C-BAA2-4921-8648-A8A9EFB3B22C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7489CA2A-3880-4000-93D7-C3A449E5E157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7489CA2A-3880-4000-93D7-C3A449E5E157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7489CA2A-3880-4000-93D7-C3A449E5E157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7489CA2A-3880-4000-93D7-C3A449E5E157}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
