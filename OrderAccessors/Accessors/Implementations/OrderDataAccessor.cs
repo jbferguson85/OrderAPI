@@ -96,5 +96,31 @@ namespace OrderAccessors.Accessors.Implementations
                 .ToListAsync();
             return _mapper.Map<List<OrderDto>>(orders);
         }
+
+        public async Task<OrderDto> UpdateOrderAsync(OrderForUpdateDto order)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> OrderExistsAsync(int orderId)
+        {
+            return await _context.Orders.AnyAsync(x => x.Id == orderId);
+        }
+
+        public async Task<List<LineItemDto>> GetLineItemsForOrderAsync(int orderId)
+        {
+            var lineItems = await _context.LineItems.Where(x => x.OrderId == orderId).ToListAsync();
+            return _mapper.Map<List<LineItemEntity>, List<LineItemDto>>(lineItems);
+        }
+
+        private async Task<List<LineItemEntity>> GetExistingLineItems(int orderId)
+        {
+            return await _context.LineItems.Where(x => x.OrderId == orderId).ToListAsync();
+        }
+        
+        private IQueryable<LineItemEntity> GetLineItemsQueryable(int orderId)
+        {
+            return _context.LineItems.Where(x => x.OrderId == orderId).AsQueryable();
+        }
     }
 }

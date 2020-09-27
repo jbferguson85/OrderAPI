@@ -15,6 +15,6 @@ namespace OrderCore.DTOs
 
         public int CustomerId { get; set; }
 
-        public List<LineItemDto> LineItems { get; set; }
+        public List<LineItemForUpdateDto> LineItems { get; set; }
     }
 }
