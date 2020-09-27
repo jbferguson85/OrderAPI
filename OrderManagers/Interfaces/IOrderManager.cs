@@ -15,5 +15,6 @@ namespace OrderManagers.Interfaces
 
         Task<OrderDto> GetOrderAsync(int orderId);
         Task<List<OrderDto>> GetOrdersAsync();
+        Task<OrderDto> UpdateOrderAsync(OrderForUpdateDto order);
     }
 }

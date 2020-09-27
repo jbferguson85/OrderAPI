@@ -54,6 +54,17 @@ namespace OrderManagers.Implementations
             return await _orderAccessor.GetOrdersAsync();
         }
 
+        public async Task<OrderDto> UpdateOrderAsync(OrderForUpdateDto order)
+        {
+            var orderExists = await _orderAccessor.OrderExistsAsync(order.Id);
+            if (!orderExists)
+            {
+                return null;
+            }
+
+            return await _orderAccessor.UpdateOrderAsync(order);
+        }
+
         public async Task<List<ProductDto>> GetProductsAsync(string searchTerm)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))
