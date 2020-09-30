@@ -1,15 +1,17 @@
 using System.Collections.Generic;
 using Moq;
 using OrderAccessors.Accessors.Interfaces;
+using OrderCore.DTOs;
 using OrderCore.Entities;
 
 namespace OrderUnitTests.MockSetups
 {
     public class MockOrderAccessor : Mock<IOrderDataAccessor>
     {
-        public MockOrderAccessor MockGetExistingLineItems(List<LineItemEntity> results)
+        public MockOrderAccessor MockOrderNotFound(OrderDto result)
         {
-            //Setup(x => x.Get)
+            result = null;
+            Setup(x => x.GetOrderAsync(It.IsAny<int>())).ReturnsAsync(result);
             return this;
         }
     }
