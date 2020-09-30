@@ -56,7 +56,11 @@ namespace OrderManagers.Implementations
 
         public async Task<OrderDto> UpdateOrderAsync(OrderForUpdateDto order)
         {
-            
+            var orderInDb = await _orderAccessor.GetOrderAsync(order.Id);
+            if (orderInDb == null)
+            {
+                return null;
+            }
             throw new NotImplementedException();
             //return await _orderAccessor.UpdateOrderAsync(order);
         }
