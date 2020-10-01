@@ -27,5 +27,7 @@ namespace OrderAccessors.Accessors.Interfaces
         Task<bool> OrderExistsAsync(int orderId);
 
         Task<List<LineItemDto>> GetLineItemsForOrderAsync(int orderId);
+
+        Task DeleteLineItems(List<LineItemDto> lineItems);
     }
 }

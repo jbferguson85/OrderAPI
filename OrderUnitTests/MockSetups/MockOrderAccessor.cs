@@ -14,5 +14,19 @@ namespace OrderUnitTests.MockSetups
             Setup(x => x.GetOrderAsync(It.IsAny<int>())).ReturnsAsync(result);
             return this;
         }
+
+        public MockOrderAccessor MockOrderInDb(OrderDto order)
+        {
+            Setup(x => x.GetOrderAsync(It.IsAny<int>())).ReturnsAsync(order);
+
+            return this;
+        }
+
+        public MockOrderAccessor VerifyDeleteLineItems(Times timesCalled)
+        {
+            Verify(x => x.DeleteLineItems(It.IsAny<List<LineItemDto>>()), timesCalled);
+
+            return this;
+        }
     }
 }

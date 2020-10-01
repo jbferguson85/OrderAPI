@@ -113,6 +113,11 @@ namespace OrderAccessors.Accessors.Implementations
             return _mapper.Map<List<LineItemEntity>, List<LineItemDto>>(lineItems);
         }
 
+        public Task DeleteLineItems(List<LineItemDto> lineItems)
+        {
+            throw new NotImplementedException();
+        }
+
         private async Task<List<LineItemEntity>> GetExistingLineItems(int orderId)
         {
             return await _context.LineItems.Where(x => x.OrderId == orderId).ToListAsync();
