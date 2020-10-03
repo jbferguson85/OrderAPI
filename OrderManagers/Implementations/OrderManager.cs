@@ -1,6 +1,7 @@
 ﻿﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+ using System.Linq;
+ using System.Threading.Tasks;
 using OrderCore.DTOs;
 using OrderManagers.Interfaces;
 using OrderAccessors.Accessors.Interfaces;
@@ -61,8 +62,18 @@ namespace OrderManagers.Implementations
             {
                 return null;
             }
-            throw new NotImplementedException();
-            //return await _orderAccessor.UpdateOrderAsync(order);
+
+            var incomingProductIds = order.LineItems.Select(x => x.ProductId).ToList();
+            var dbProductIds = order.LineItems.Select(x => x.ProductId).ToList();
+            var lineItemsToDelete = orderInDb.LineItems
+                .Where(x => !incomingProductIds
+                    .Contains(x.ProductId))
+                .ToList();
+            if (lineItemsToDelete.Any())
+            {
+                await _orderAccessor.DeleteLineItems(lineItemsToDelete);
+            }
+            return await _orderAccessor.UpdateOrderAsync(order);
         }
 
         public async Task<List<ProductDto>> GetProductsAsync(string searchTerm)

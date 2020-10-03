@@ -67,7 +67,6 @@ namespace OrderUnitTests
 
             // Assert
             mockAccessor.VerifyDeleteLineItems(Times.Once());
-            Assert.NotNull(result);
         }
 
         [Fact]

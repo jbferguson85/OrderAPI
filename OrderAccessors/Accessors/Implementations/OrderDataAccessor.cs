@@ -99,7 +99,7 @@ namespace OrderAccessors.Accessors.Implementations
 
         public async Task<OrderDto> UpdateOrderAsync(OrderForUpdateDto order)
         {
-            throw new NotImplementedException();
+            return new OrderDto();
         }
 
         public async Task<bool> OrderExistsAsync(int orderId)
