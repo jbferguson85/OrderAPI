@@ -96,9 +96,35 @@ namespace OrderUnitTests
         }
 
         [Fact]
-        public  void LineItemsInDbAndUpdateDtoShouldBeUpdated()
+        public async void LineItemsInDbAndUpdateDtoShouldBeUpdated()
         {
-            throw new NotImplementedException(); 
+            // Arrange
+            var orderInDb = new OrderDto
+            {
+                Id = 1,
+                Customer = new CustomerDto {Id = 1},
+                LineItems = new List<LineItemDto>
+                {
+                    new LineItemDto {OrderId = 1, ProductId = 1},
+                }
+            };
+            var orderToUpdate = new OrderForUpdateDto
+            {
+                Id = 1,
+                CustomerId = 1,
+                LineItems = new List<LineItemForUpdateDto>
+                {
+                    new LineItemForUpdateDto {OrderId = 1, ProductId = 1}
+                }
+            };
+            var mockAccessor = new MockOrderAccessor().MockOrderInDb(orderInDb);
+            var manager = new OrderManager(mockAccessor.Object, new MockAutoMapper().Object);
+            
+            // Act
+            var result = await manager.UpdateOrderAsync(orderToUpdate);
+
+            // Assert
+            mockAccessor.VerifyUpdateLineItems(Times.Once());
         }
     }
 }

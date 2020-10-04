@@ -35,5 +35,12 @@ namespace OrderUnitTests.MockSetups
 
             return this;
         }
+
+        public MockOrderAccessor VerifyUpdateLineItems(Times timesCalled)
+        {
+            Verify(x => x.UpdateLineItems(It.IsAny<List<LineItemForUpdateDto>>()), timesCalled);
+
+            return this;
+        }
     }
 }

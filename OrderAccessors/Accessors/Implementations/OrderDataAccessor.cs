@@ -123,6 +123,11 @@ namespace OrderAccessors.Accessors.Implementations
             throw new NotImplementedException();
         }
 
+        public Task UpdateLineItems(List<LineItemForUpdateDto> lineItems)
+        {
+            throw new NotImplementedException();
+        }
+
         private async Task<List<LineItemEntity>> GetExistingLineItems(int orderId)
         {
             return await _context.LineItems.Where(x => x.OrderId == orderId).ToListAsync();

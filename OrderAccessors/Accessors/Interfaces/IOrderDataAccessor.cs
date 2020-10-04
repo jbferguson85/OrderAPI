@@ -31,5 +31,7 @@ namespace OrderAccessors.Accessors.Interfaces
         Task DeleteLineItems(List<LineItemDto> lineItems);
 
         Task AddLineItems(List<LineItemDto> lineItems);
+
+        Task UpdateLineItems(List<LineItemForUpdateDto> lineItems);
     }
 }
