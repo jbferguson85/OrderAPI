@@ -83,6 +83,13 @@ namespace OrderManagers.Implementations
             {
                 await _orderAccessor.AddLineItems(_mapper.Map<List<LineItemDto>>(lineItemsToAdd));
             }
+
+            var lineItemsToUpdate = order.LineItems.Where(x => dbProductIds.Contains(x.ProductId)).ToList();
+
+            if (lineItemsToUpdate.Any())
+            {
+                await _orderAccessor.UpdateLineItems(lineItemsToUpdate);
+            }
             
             return await _orderAccessor.UpdateOrderAsync(order);
         }
