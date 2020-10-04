@@ -12,9 +12,11 @@ namespace OrderManagers.Implementations
     public class OrderManager : IOrderManager
     {
         private readonly IOrderDataAccessor _orderAccessor;
-        public OrderManager(IOrderDataAccessor orderDataAccessor) 
+        private readonly IMapper _mapper;
+        public OrderManager(IOrderDataAccessor orderDataAccessor, IMapper mapper)
         {
             _orderAccessor = orderDataAccessor;
+            _mapper = mapper;
         }
 
         public async Task<ProductDto> GetProductAsync(int productId)
@@ -64,7 +66,7 @@ namespace OrderManagers.Implementations
             }
 
             var incomingProductIds = order.LineItems.Select(x => x.ProductId).ToList();
-            var dbProductIds = order.LineItems.Select(x => x.ProductId).ToList();
+            var dbProductIds = orderInDb.LineItems.Select(x => x.ProductId).ToList();
             var lineItemsToDelete = orderInDb.LineItems
                 .Where(x => !incomingProductIds
                     .Contains(x.ProductId))
@@ -73,6 +75,15 @@ namespace OrderManagers.Implementations
             {
                 await _orderAccessor.DeleteLineItems(lineItemsToDelete);
             }
+
+            var lineItemsToAdd = order.LineItems
+                .Where(x => !dbProductIds.Contains(x.ProductId)).ToList();
+
+            if (lineItemsToAdd.Any())
+            {
+                await _orderAccessor.AddLineItems(_mapper.Map<List<LineItemDto>>(lineItemsToAdd));
+            }
+            
             return await _orderAccessor.UpdateOrderAsync(order);
         }
 

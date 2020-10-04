@@ -29,5 +29,7 @@ namespace OrderAccessors.Accessors.Interfaces
         Task<List<LineItemDto>> GetLineItemsForOrderAsync(int orderId);
 
         Task DeleteLineItems(List<LineItemDto> lineItems);
+
+        Task AddLineItems(List<LineItemDto> lineItems);
     }
 }
