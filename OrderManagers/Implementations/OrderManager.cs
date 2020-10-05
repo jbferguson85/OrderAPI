@@ -73,7 +73,7 @@ namespace OrderManagers.Implementations
                 .ToList();
             if (lineItemsToDelete.Any())
             {
-                await _orderAccessor.DeleteLineItems(lineItemsToDelete);
+                _orderAccessor.DeleteLineItems(lineItemsToDelete);
             }
 
             var lineItemsToAdd = order.LineItems
@@ -88,10 +88,11 @@ namespace OrderManagers.Implementations
 
             if (lineItemsToUpdate.Any())
             {
-                await _orderAccessor.UpdateLineItems(lineItemsToUpdate);
+                _orderAccessor.UpdateLineItems(lineItemsToUpdate);
             }
-            
-            return await _orderAccessor.UpdateOrderAsync(order);
+            _orderAccessor.UpdateOrderAsync(order);
+            await _orderAccessor.Commit();
+            return await GetOrderAsync(order.Id);
         }
 
         public async Task<List<ProductDto>> GetProductsAsync(string searchTerm)

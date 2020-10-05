@@ -24,12 +24,6 @@ namespace OrderUnitTests
         }
 
         [Fact]
-        public void IfCustomerForUpdateIsDifferentThanInDbThenUpdateCustomer()
-        {
-            throw new NotImplementedException();
-        }
-
-        [Fact]
         public async void NewLineItemsShouldBeAdded()
         {
             // Arrange

@@ -97,9 +97,11 @@ namespace OrderAccessors.Accessors.Implementations
             return _mapper.Map<List<OrderDto>>(orders);
         }
 
-        public async Task<OrderDto> UpdateOrderAsync(OrderForUpdateDto order)
+        public void UpdateOrderAsync(OrderForUpdateDto order)
         {
-            return new OrderDto();
+            order.LineItems = new List<LineItemForUpdateDto>();
+            var orderEntity = _mapper.Map<OrderDto>(order);
+            _context.Entry(orderEntity).State = EntityState.Modified;
         }
 
         public async Task<bool> OrderExistsAsync(int orderId)
@@ -113,19 +115,24 @@ namespace OrderAccessors.Accessors.Implementations
             return _mapper.Map<List<LineItemEntity>, List<LineItemDto>>(lineItems);
         }
 
-        public Task DeleteLineItems(List<LineItemDto> lineItems)
+        public void DeleteLineItems(List<LineItemDto> lineItems)
         {
-            throw new NotImplementedException();
+            _context.Entry(lineItems).State = EntityState.Deleted;
         }
 
-        public Task AddLineItems(List<LineItemDto> lineItems)
+        public async Task AddLineItems(List<LineItemDto> lineItems)
         {
-            throw new NotImplementedException();
+            await _context.LineItems.AddRangeAsync(_mapper.Map<List<LineItemEntity>>(lineItems));
         }
 
-        public Task UpdateLineItems(List<LineItemForUpdateDto> lineItems)
+        public void UpdateLineItems(List<LineItemForUpdateDto> lineItems)
         {
-            throw new NotImplementedException();
+            _context.Entry(lineItems).State = EntityState.Modified;
+        }
+
+        public async Task Commit()
+        {
+            await _context.SaveChangesAsync();
         }
 
         private async Task<List<LineItemEntity>> GetExistingLineItems(int orderId)
