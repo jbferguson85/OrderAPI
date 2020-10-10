@@ -52,6 +52,14 @@ namespace OrderAPI.Controllers
             var orderDto = _mapper.Map<OrderForCreationDto, OrderDto>(order);
             var newOrder = await _orderManager.CreateOrderAsync(orderDto);
             return Ok(newOrder);
+            // return NoContent();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateOrder([FromBody] OrderForUpdateDto order)
+        {
+            var newOrder = await _orderManager.UpdateOrderAsync(order);
+            return Ok(newOrder);
         }
     }
 }

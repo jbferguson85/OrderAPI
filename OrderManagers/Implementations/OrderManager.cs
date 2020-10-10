@@ -43,7 +43,7 @@ namespace OrderManagers.Implementations
         {
             order.OrderStatus = "Processing";
             order.CreatedDate = DateTime.Now; // yeah, i know. 
-            order.OrderNumber = new Random(1000).ToString();
+            order.OrderNumber = new Random(1000).Next().ToString();
             return await _orderAccessor.CreateOrderAsync(order);
         }
 

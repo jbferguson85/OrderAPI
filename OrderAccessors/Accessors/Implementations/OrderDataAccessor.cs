@@ -99,7 +99,6 @@ namespace OrderAccessors.Accessors.Implementations
 
         public void UpdateOrderAsync(OrderForUpdateDto order)
         {
-            order.LineItems = new List<LineItemForUpdateDto>();
             var orderEntity = _mapper.Map<OrderDto>(order);
             _context.Entry(orderEntity).State = EntityState.Modified;
         }
@@ -117,7 +116,10 @@ namespace OrderAccessors.Accessors.Implementations
 
         public void DeleteLineItems(List<LineItemDto> lineItems)
         {
-            _context.Entry(lineItems).State = EntityState.Deleted;
+            foreach (var lineItem in lineItems)
+            {
+                _context.Entry(lineItem).State = EntityState.Deleted;
+            }
         }
 
         public async Task AddLineItems(List<LineItemDto> lineItems)
@@ -127,7 +129,10 @@ namespace OrderAccessors.Accessors.Implementations
 
         public void UpdateLineItems(List<LineItemForUpdateDto> lineItems)
         {
-            _context.Entry(lineItems).State = EntityState.Modified;
+            foreach (var lineItem in lineItems)
+            {
+                _context.Entry(lineItem).State = EntityState.Modified;
+            }
         }
 
         public async Task Commit()
