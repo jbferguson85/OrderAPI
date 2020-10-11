@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OrderCore.DTOs
 {
@@ -9,8 +10,10 @@ namespace OrderCore.DTOs
 
         public string OrderName { get; set; }
 
+        [Required]
         public int CustomerId { get; set; }
 
+        [Required]
         public List<LineItemForCreationDto> LineItems { get; set; } = new List<LineItemForCreationDto>();
     }
 }

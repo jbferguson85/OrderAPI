@@ -99,8 +99,11 @@ namespace OrderAccessors.Accessors.Implementations
 
         public void UpdateOrderAsync(OrderForUpdateDto order)
         {
-            var orderEntity = _mapper.Map<OrderDto>(order);
+            var orderEntity = _mapper.Map<OrderEntity>(order);
             _context.Entry(orderEntity).State = EntityState.Modified;
+            _context.Entry(orderEntity).Property(x => x.CreatedDate).IsModified = false;
+            _context.Entry(orderEntity).Property(x => x.OrderNumber).IsModified = false;
+            
         }
 
         public async Task<bool> OrderExistsAsync(int orderId)
@@ -116,7 +119,8 @@ namespace OrderAccessors.Accessors.Implementations
 
         public void DeleteLineItems(List<LineItemDto> lineItems)
         {
-            foreach (var lineItem in lineItems)
+            var entities = _mapper.Map<List<LineItemEntity>>(lineItems);
+            foreach (var lineItem in entities)
             {
                 _context.Entry(lineItem).State = EntityState.Deleted;
             }
@@ -129,7 +133,8 @@ namespace OrderAccessors.Accessors.Implementations
 
         public void UpdateLineItems(List<LineItemForUpdateDto> lineItems)
         {
-            foreach (var lineItem in lineItems)
+            var entities = _mapper.Map<List<LineItemEntity>>(lineItems);
+            foreach (var lineItem in entities)
             {
                 _context.Entry(lineItem).State = EntityState.Modified;
             }

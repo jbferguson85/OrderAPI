@@ -13,6 +13,10 @@ namespace OrderCore.MappingProfiles
                 .AfterMap((s,d) => d.Customer = new CustomerDto{Id = s.CustomerId})
                 .ReverseMap()
                 .AfterMap((s, d) => d.CustomerId = s.Customer.Id);
+            CreateMap<OrderForUpdateDto, OrderEntity>()
+                .AfterMap((s,d) => d.Customer = new CustomerEntity{Id = s.CustomerId})
+                .ReverseMap()
+                .AfterMap((s, d) => d.CustomerId = s.Customer.Id);;
         }
     }
 }

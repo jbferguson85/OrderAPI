@@ -25,8 +25,10 @@ namespace OrderAccessors.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("Order");
-            modelBuilder.Entity<LineItemEntity>().HasKey(o => new { o.OrderId, o.ProductId});
+            modelBuilder.HasDefaultSchema("order_api");
+            
+            modelBuilder.Entity<LineItemEntity>()
+                .HasKey(o => new { o.OrderId, o.ProductId});
         }
     }
 }
