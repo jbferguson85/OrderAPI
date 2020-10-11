@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace OrderCore.Entities
 {
     public class LineItemEntity

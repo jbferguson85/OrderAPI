@@ -29,6 +29,12 @@ namespace OrderAccessors.Contexts
             
             modelBuilder.Entity<LineItemEntity>()
                 .HasKey(o => new { o.OrderId, o.ProductId});
+            modelBuilder.Entity<LineItemEntity>()
+                .HasOne<OrderEntity>()
+                .WithMany(x => x.LineItems)
+                .HasForeignKey(x => x.OrderId);
+            
+
         }
     }
 }
