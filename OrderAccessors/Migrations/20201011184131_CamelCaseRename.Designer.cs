@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OrderAccessors.Contexts;
@@ -9,9 +10,10 @@ using OrderAccessors.Contexts;
 namespace OrderAccessors.Migrations
 {
     [DbContext(typeof(OrderDbContext))]
-    partial class OrderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201011184131_CamelCaseRename")]
+    partial class CamelCaseRename
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,6 +82,10 @@ namespace OrderAccessors.Migrations
                         .HasColumnName("item_code")
                         .HasColumnType("text");
 
+                    b.Property<int?>("OrderEntityId")
+                        .HasColumnName("order_entity_id")
+                        .HasColumnType("integer");
+
                     b.Property<decimal>("Price")
                         .HasColumnName("price")
                         .HasColumnType("numeric");
@@ -95,6 +101,9 @@ namespace OrderAccessors.Migrations
                     b.HasKey("OrderId", "ProductId")
                         .HasName("pk_line_items");
 
+                    b.HasIndex("OrderEntityId")
+                        .HasName("ix_line_items_order_entity_id");
+
                     b.ToTable("line_items");
                 });
 
@@ -106,7 +115,7 @@ namespace OrderAccessors.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime?>("CompletedDate")
+                    b.Property<DateTime>("CompletedDate")
                         .HasColumnName("completed_date")
                         .HasColumnType("timestamp without time zone");
 
@@ -114,7 +123,7 @@ namespace OrderAccessors.Migrations
                         .HasColumnName("created_date")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int?>("CustomerId")
                         .HasColumnName("customer_id")
                         .HasColumnType("integer");
 
@@ -173,10 +182,8 @@ namespace OrderAccessors.Migrations
                 {
                     b.HasOne("OrderCore.Entities.OrderEntity", null)
                         .WithMany("LineItems")
-                        .HasForeignKey("OrderId")
-                        .HasConstraintName("fk_line_items_orders_order_entity_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderEntityId")
+                        .HasConstraintName("fk_line_items_orders_order_entity_id");
                 });
 
             modelBuilder.Entity("OrderCore.Entities.OrderEntity", b =>
@@ -184,9 +191,7 @@ namespace OrderAccessors.Migrations
                     b.HasOne("OrderCore.Entities.CustomerEntity", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
-                        .HasConstraintName("fk_orders_customers_customer_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasConstraintName("fk_orders_customers_customer_id");
                 });
 #pragma warning restore 612, 618
         }

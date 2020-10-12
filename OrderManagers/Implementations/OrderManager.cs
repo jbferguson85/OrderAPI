@@ -1,6 +1,7 @@
 ﻿﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+ using System.Linq;
+ using System.Threading.Tasks;
 using OrderCore.DTOs;
 using OrderManagers.Interfaces;
 using OrderAccessors.Accessors.Interfaces;
@@ -11,9 +12,11 @@ namespace OrderManagers.Implementations
     public class OrderManager : IOrderManager
     {
         private readonly IOrderDataAccessor _orderAccessor;
-        public OrderManager(IOrderDataAccessor orderDataAccessor) 
+        private readonly IMapper _mapper;
+        public OrderManager(IOrderDataAccessor orderDataAccessor, IMapper mapper)
         {
             _orderAccessor = orderDataAccessor;
+            _mapper = mapper;
         }
 
         public async Task<ProductDto> GetProductAsync(int productId)
@@ -40,7 +43,7 @@ namespace OrderManagers.Implementations
         {
             order.OrderStatus = "Processing";
             order.CreatedDate = DateTime.Now; // yeah, i know. 
-            order.OrderNumber = new Random(1000).ToString();
+            order.OrderNumber = new Random(1000).Next().ToString();
             return await _orderAccessor.CreateOrderAsync(order);
         }
 
@@ -56,13 +59,40 @@ namespace OrderManagers.Implementations
 
         public async Task<OrderDto> UpdateOrderAsync(OrderForUpdateDto order)
         {
-            var orderExists = await _orderAccessor.OrderExistsAsync(order.Id);
-            if (!orderExists)
+            var orderInDb = await _orderAccessor.GetOrderAsync(order.Id);
+            if (orderInDb == null)
             {
                 return null;
             }
 
-            return await _orderAccessor.UpdateOrderAsync(order);
+            var incomingProductIds = order.LineItems.Select(x => x.ProductId).ToList();
+            var dbProductIds = orderInDb.LineItems.Select(x => x.ProductId).ToList();
+            var lineItemsToDelete = orderInDb.LineItems
+                .Where(x => !incomingProductIds
+                    .Contains(x.ProductId))
+                .ToList();
+            if (lineItemsToDelete.Any())
+            {
+                _orderAccessor.DeleteLineItems(lineItemsToDelete);
+            }
+
+            var lineItemsToAdd = order.LineItems
+                .Where(x => !dbProductIds.Contains(x.ProductId)).ToList();
+
+            if (lineItemsToAdd.Any())
+            {
+                await _orderAccessor.AddLineItems(_mapper.Map<List<LineItemDto>>(lineItemsToAdd));
+            }
+
+            var lineItemsToUpdate = order.LineItems.Where(x => dbProductIds.Contains(x.ProductId)).ToList();
+
+            if (lineItemsToUpdate.Any())
+            {
+                _orderAccessor.UpdateLineItems(lineItemsToUpdate);
+            }
+            _orderAccessor.UpdateOrderAsync(order);
+            await _orderAccessor.Commit();
+            return await GetOrderAsync(order.Id);
         }
 
         public async Task<List<ProductDto>> GetProductsAsync(string searchTerm)

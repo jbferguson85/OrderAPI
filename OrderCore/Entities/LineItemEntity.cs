@@ -7,6 +7,7 @@ namespace OrderCore.Entities
         public int OrderId { get; set; }
 
         public string ItemCode { get; set; }
+        
 
         public string Description { get; set; }
 

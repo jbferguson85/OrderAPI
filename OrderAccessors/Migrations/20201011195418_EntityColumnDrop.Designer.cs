@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OrderAccessors.Contexts;
@@ -9,9 +10,10 @@ using OrderAccessors.Contexts;
 namespace OrderAccessors.Migrations
 {
     [DbContext(typeof(OrderDbContext))]
-    partial class OrderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201011195418_EntityColumnDrop")]
+    partial class EntityColumnDrop
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,7 +108,7 @@ namespace OrderAccessors.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime?>("CompletedDate")
+                    b.Property<DateTime>("CompletedDate")
                         .HasColumnName("completed_date")
                         .HasColumnType("timestamp without time zone");
 
@@ -114,7 +116,7 @@ namespace OrderAccessors.Migrations
                         .HasColumnName("created_date")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int?>("CustomerId")
                         .HasColumnName("customer_id")
                         .HasColumnType("integer");
 
@@ -184,9 +186,7 @@ namespace OrderAccessors.Migrations
                     b.HasOne("OrderCore.Entities.CustomerEntity", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
-                        .HasConstraintName("fk_orders_customers_customer_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasConstraintName("fk_orders_customers_customer_id");
                 });
 #pragma warning restore 612, 618
         }

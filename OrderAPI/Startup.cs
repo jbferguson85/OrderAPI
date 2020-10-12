@@ -36,7 +36,9 @@ namespace OrderAPI
             services.AddControllers();
             services.AddDbContext<OrderDbContext>(options =>
             {
-                options.UseNpgsql(Configuration.GetConnectionString("OrderDatabase"));
+                options
+                    .UseNpgsql(Configuration.GetConnectionString("OrderDatabase"))
+                    .UseSnakeCaseNamingConvention();
             });
             
             services.AddAutoMapper(typeof(OrderProfile).Assembly);
