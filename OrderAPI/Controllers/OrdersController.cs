@@ -61,5 +61,19 @@ namespace OrderAPI.Controllers
             var newOrder = await _orderManager.UpdateOrderAsync(order);
             return Ok(newOrder);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteOrder(int orderId)
+        {
+            var order = await _orderManager.GetOrderAsync(orderId);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            await _orderManager.DeleteOrderAsync(orderId);
+            return Ok();
+        }
     }
 }
