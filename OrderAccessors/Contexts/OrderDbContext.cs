@@ -33,8 +33,6 @@ namespace OrderAccessors.Contexts
                 .HasOne<OrderEntity>()
                 .WithMany(x => x.LineItems)
                 .HasForeignKey(x => x.OrderId);
-            
-
         }
     }
 }
