@@ -63,16 +63,16 @@ namespace OrderAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOrder(int orderId)
+        public async Task<IActionResult> DeleteOrder(int id)
         {
-            var order = await _orderManager.GetOrderAsync(orderId);
+            var order = await _orderManager.GetOrderAsync(id);
 
             if (order == null)
             {
                 return NotFound();
             }
 
-            await _orderManager.DeleteOrderAsync(orderId);
+            await _orderManager.DeleteOrderAsync(id);
             return Ok();
         }
     }
