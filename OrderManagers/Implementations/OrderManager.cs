@@ -65,6 +65,13 @@ namespace OrderManagers.Implementations
                 return null;
             }
 
+            if (order.OrderStatus == "Complete" && 
+                (orderInDb.CompletedDate != null || 
+                order.CompletedDate != DateTime.MinValue))
+            {
+                order.CompletedDate = DateTime.Now;
+            }
+
             var incomingProductIds = order.LineItems.Select(x => x.ProductId).ToList();
             var dbProductIds = orderInDb.LineItems.Select(x => x.ProductId).ToList();
             var lineItemsToDelete = orderInDb.LineItems

@@ -19,7 +19,7 @@ namespace OrderCore.DTOs
 
         public DateTime CreatedDate { get; set; }
 
-        public DateTime CompletedDate { get; set; }
+        public DateTime? CompletedDate { get; set; }
 
         public CustomerDto Customer { get; set; }
 
