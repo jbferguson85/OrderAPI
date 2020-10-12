@@ -103,7 +103,6 @@ namespace OrderAccessors.Accessors.Implementations
             _context.Entry(orderEntity).State = EntityState.Modified;
             _context.Entry(orderEntity).Property(x => x.CreatedDate).IsModified = false;
             _context.Entry(orderEntity).Property(x => x.OrderNumber).IsModified = false;
-            
         }
 
         public async Task<bool> OrderExistsAsync(int orderId)

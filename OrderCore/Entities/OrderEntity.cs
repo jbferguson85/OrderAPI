@@ -17,6 +17,7 @@ namespace OrderCore.Entities
         public DateTime CreatedDate { get; set; }
 
         public DateTime CompletedDate { get; set; }
+        public int CustomerId { get; set; }
 
         [ForeignKey("CustomerId")]
         public CustomerEntity Customer { get; set; }
