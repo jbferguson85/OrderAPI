@@ -102,6 +102,11 @@ namespace OrderManagers.Implementations
             return await GetOrderAsync(order.Id);
         }
 
+        public async Task DeleteOrderAsync(int orderId)
+        {
+            await _orderAccessor.DeleteOrderAsync(orderId);
+        }
+
         public async Task<List<ProductDto>> GetProductsAsync(string searchTerm)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))

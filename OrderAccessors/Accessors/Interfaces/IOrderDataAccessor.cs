@@ -24,6 +24,7 @@ namespace OrderAccessors.Accessors.Interfaces
         Task<OrderDto> GetOrderAsync(int orderId);
         Task<List<OrderDto>> GetOrdersAsync();
         void UpdateOrderAsync(OrderForUpdateDto order);
+        Task DeleteOrderAsync(int orderId);
         Task<bool> OrderExistsAsync(int orderId);
 
         Task<List<LineItemDto>> GetLineItemsForOrderAsync(int orderId);

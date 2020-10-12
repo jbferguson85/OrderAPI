@@ -105,6 +105,16 @@ namespace OrderAccessors.Accessors.Implementations
             _context.Entry(orderEntity).Property(x => x.OrderNumber).IsModified = false;
         }
 
+        public async Task DeleteOrderAsync(int orderId)
+        {
+            var order = await _context.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
+            if (order != null)
+            {
+                _context.Orders.Remove(order);
+                await _context.SaveChangesAsync();
+            }
+        }
+
         public async Task<bool> OrderExistsAsync(int orderId)
         {
             return await _context.Orders.AnyAsync(x => x.Id == orderId);
