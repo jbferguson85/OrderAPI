@@ -3,7 +3,7 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
-trigger:
+pr:
 - master
 
 pool:
@@ -33,4 +33,4 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     testSelector: 'testAssemblies'
-    testAssemblyVer2: '**\OrderUnitTests.dll''!**/obj/**.dll'
+    testAssemblyVer2: '**\OrderUnitTests.dll,!**/obj/**.dll'
