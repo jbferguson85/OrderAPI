@@ -5,6 +5,7 @@
 
 pr:
 - master
+trigger: none
 
 pool:
   vmImage: 'windows-latest'
@@ -33,4 +34,7 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     testSelector: 'testAssemblies'
-    testAssemblyVer2: '**\OrderUnitTests.dll,!**/obj/**.dll'
+    testAssemblyVer2: |
+     **\OrderUnitTests.dll
+     !**\*TestAdapter.dll
+     !**\obj\**
