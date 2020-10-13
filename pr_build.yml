@@ -33,6 +33,4 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     testSelector: 'testAssemblies'
-    testAssemblyVer2: 
-      -'**\*UnitTests.dll'
-      -'!**\obj\**'
+    testAssemblyVer2: '**\OrderUnitTests.dll'
